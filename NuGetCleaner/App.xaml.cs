@@ -1,20 +1,6 @@
 ﻿using Prism.Unity.Windows;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Unity;
 using System.Threading.Tasks;
 using NuGetCleaner.Services;
@@ -56,6 +42,38 @@ namespace NuGetCleaner
         {
             NavigationService.Navigate("Main", null);
             return Task.CompletedTask;
+        }
+
+        protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            base.OnBackgroundActivated(args);
+            if (Container == null)
+            {
+                CreateAndConfigureContainer();
+            }
+
+            var deferral = args.TaskInstance.GetDeferral();
+            if (args.TaskInstance.Task.Name == BackgroundNuGetCleanerService.BackgroundTaskName)
+            {
+                try
+                {
+                    await Container.Resolve<BackgroundNuGetCleanerService>().RunAsync();
+                }
+                catch (Exception ex)
+                {
+                    Container.Resolve<MetricsService>().TrackException(ex);
+                }
+            }
+
+            deferral.Complete();
+        }
+
+        protected override void CreateAndConfigureContainer()
+        {
+            if (Container == null)
+            {
+                base.CreateAndConfigureContainer();
+            }
         }
     }
 }

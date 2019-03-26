@@ -25,9 +25,12 @@
             </Grid>
             <TextBox x:Uid="MainPage_DaysOfPackagesToKeepBox" Margin="6"
                      Text="{x:Bind ViewModel.DaysOfPackagesToKeep, Mode=TwoWay}" />
+            <ToggleSwitch x:Uid="MainPage_BackgroundCleaningSwitch" Margin="6"
+                          IsOn="{x:Bind ViewModel.BackgroundCleanEnabled, Mode=TwoWay}"
+                          IsEnabled="{x:Bind ViewModel.BackgroundCleanSwitchEnabled, Mode=OneWay}"/>
             <Button x:Uid="MainPage_CleanButton" Margin="6" HorizontalAlignment="Center"
                     Command="{x:Bind ViewModel.CleanCommand}" />
-            <ProgressBar Margin="6"
+            <ProgressBar Margin="6" Maximum="1"
                          Visibility="{x:Bind ViewModel.InProgress, Mode=OneWay}"
                          Value="{x:Bind ViewModel.Progress, Mode=OneWay}" />
         </StackPanel>

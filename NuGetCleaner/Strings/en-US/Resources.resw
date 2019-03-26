@@ -120,11 +120,29 @@
   <data name="AppTitle" xml:space="preserve">
     <value>NuGet Cache Cleaner</value>
   </data>
+  <data name="BackgroundNuGetCleaner_Cleaned" xml:space="preserve">
+    <value>NuGet cache was cleaned.</value>
+  </data>
+  <data name="BackgroundNuGetCleaner_CleaningMessage" xml:space="preserve">
+    <value>Cleaning NuGet cache...</value>
+  </data>
+  <data name="BackgroundNuGetCleaner_CleaningStatus" xml:space="preserve">
+    <value>Cleaning...</value>
+  </data>
+  <data name="BackgroundNuGetCleaner_FolderNotSet" xml:space="preserve">
+    <value>Can't perform background cleaning because configuration is incomplete. Please make sure you have set the path to ".nuget" folder.</value>
+  </data>
+  <data name="BackgroundNuGetCleaner_ToastTitle" xml:space="preserve">
+    <value>NuGet cache cleaning</value>
+  </data>
   <data name="MainPageVM_Error" xml:space="preserve">
     <value>Error occured when accessing path “{0}”. Message: “{1}”</value>
   </data>
   <data name="MainPageVM_PackageCleaned" xml:space="preserve">
     <value>Package “{0} {1}” is cleaned</value>
+  </data>
+  <data name="MainPage_BackgroundCleaningSwitch.Header" xml:space="preserve">
+    <value>Automatic background cleaning</value>
   </data>
   <data name="MainPage_BrowseButton.Content" xml:space="preserve">
     <value>Browse...</value>

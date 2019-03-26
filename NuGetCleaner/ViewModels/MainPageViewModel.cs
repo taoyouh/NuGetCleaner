@@ -19,14 +19,16 @@ namespace NuGetCleaner.ViewModels
         private readonly NuGetCleanerService cleaner;
         private readonly SettingsService settings;
         private readonly MetricsService metrics;
+        private readonly BackgroundNuGetCleanerService backgroundCleaner;
         private bool _isFolderInitialized = false;
         private StorageFolder _nuGetFolder;
         private int _daysOfPackagesToKeep = 7;
         private readonly ObservableCollection<string> _messages = new ObservableCollection<string>();
         private bool _inProgress = false;
         private double _progress = 0;
+        private bool _backgroundCleanSwitchEnabled = true;
 
-        public MainPageViewModel(NuGetCleanerService cleaner, SettingsService settings, MetricsService metrics)
+        public MainPageViewModel(NuGetCleanerService cleaner, SettingsService settings, MetricsService metrics, BackgroundNuGetCleanerService backgroundCleaner)
         {
             BrowseCommand = new DelegateCommand(Browse, CanBrowse);
             CleanCommand = new DelegateCommand(Clean, CanClean);
@@ -36,7 +38,8 @@ namespace NuGetCleaner.ViewModels
 
             this.settings = settings ?? throw new ArgumentNullException(nameof(settings));
             this.metrics = metrics ?? throw new ArgumentNullException(nameof(metrics));
-            DaysOfPackagesToKeep = settings.DaysOfPackageToKeep ?? 7;
+            this.backgroundCleaner = backgroundCleaner ?? throw new ArgumentNullException(nameof(backgroundCleaner));
+            DaysOfPackagesToKeep = settings.DaysOfPackageToKeep;
             InitializeNuGetFolder();
         }
 
@@ -89,6 +92,18 @@ namespace NuGetCleaner.ViewModels
             {
                 settings.DaysOfPackageToKeep = value;
             });
+        }
+
+        public bool BackgroundCleanSwitchEnabled
+        {
+            get => _backgroundCleanSwitchEnabled;
+            private set => SetProperty(ref _backgroundCleanSwitchEnabled, value);
+        }
+
+        public bool BackgroundCleanEnabled
+        {
+            get => backgroundCleaner.IsTaskEnabled;
+            set => SetBackgroundCleanEnabled(value);
         }
 
         public DelegateCommand CleanCommand { get; }
@@ -180,6 +195,31 @@ namespace NuGetCleaner.ViewModels
         {
             var loader = new ResourceLoader();
             _messages.Add(string.Format(loader.GetString("MainPageVM_Error"), e.Path, e.Exception.Message));
+        }
+
+        private async void SetBackgroundCleanEnabled(bool value)
+        {
+            try
+            {
+                BackgroundCleanSwitchEnabled = false;
+                if (value)
+                {
+                    await backgroundCleaner.EnableAsync();
+                }
+                else
+                {
+                    backgroundCleaner.Disable();
+                }
+            }
+            catch (Exception ex)
+            {
+                metrics.TrackException(ex);
+                RaisePropertyChanged(nameof(BackgroundCleanEnabled));
+            }
+            finally
+            {
+                BackgroundCleanSwitchEnabled = true;
+            }
         }
     }
 }

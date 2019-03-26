@@ -120,11 +120,29 @@
   <data name="AppTitle" xml:space="preserve">
     <value>NuGet缓存清理器</value>
   </data>
+  <data name="BackgroundNuGetCleaner_Cleaned" xml:space="preserve">
+    <value>已在后台清理长期未使用的NuGet包缓存。</value>
+  </data>
+  <data name="BackgroundNuGetCleaner_CleaningMessage" xml:space="preserve">
+    <value>正在清理NuGet缓存…</value>
+  </data>
+  <data name="BackgroundNuGetCleaner_CleaningStatus" xml:space="preserve">
+    <value>正在清理…</value>
+  </data>
+  <data name="BackgroundNuGetCleaner_FolderNotSet" xml:space="preserve">
+    <value>设置不完整，无法进行后台清理。请检查是否已设置.nuget文件夹的位置。</value>
+  </data>
+  <data name="BackgroundNuGetCleaner_ToastTitle" xml:space="preserve">
+    <value>NuGet缓存清理</value>
+  </data>
   <data name="MainPageVM_Error" xml:space="preserve">
     <value>访问目录“{0}”时出错，错误信息：“{1}”</value>
   </data>
   <data name="MainPageVM_PackageCleaned" xml:space="preserve">
     <value>已清理包“{0} {1}”</value>
+  </data>
+  <data name="MainPage_BackgroundCleaningSwitch.Header" xml:space="preserve">
+    <value>定期进行后台清理</value>
   </data>
   <data name="MainPage_BrowseButton.Content" xml:space="preserve">
     <value>浏览…</value>

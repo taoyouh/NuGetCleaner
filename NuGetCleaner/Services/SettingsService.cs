@@ -71,7 +71,7 @@ namespace NuGetCleaner.Services
             }
         }
 
-        public int? DaysOfPackageToKeep
+        public int DaysOfPackageToKeep
         {
             get
             {
@@ -83,7 +83,7 @@ namespace NuGetCleaner.Services
                 }
                 else
                 {
-                    return null;
+                    return 7;
                 }
             }
             set

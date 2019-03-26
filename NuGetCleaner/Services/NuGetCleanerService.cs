@@ -21,6 +21,12 @@ namespace NuGetCleaner.Services
         {
         }
 
+        /// <summary>
+        /// 根据所选设置进行清理
+        /// </summary>
+        /// <param name="progress">用于更新任务进度的对象</param>
+        /// <exception cref="InvalidOperationException"><see cref="NugetFolder"/>为null</exception>
+        /// <returns>可等待的任务</returns>
         public async Task CleanAsync(IProgress<double> progress)
         {
             var nugetFolder = NugetFolder ?? throw new InvalidOperationException("NuGetFolder is not set");
@@ -34,7 +40,7 @@ namespace NuGetCleaner.Services
                 var packageIndex = 0;
                 foreach (var folder in packageFolders)
                 {
-                    progress?.Report((double)packageIndex++ / packageCount * 100);
+                    progress?.Report((double)packageIndex++ / packageCount);
                     try
                     {
                         var packageName = folder.Name;
