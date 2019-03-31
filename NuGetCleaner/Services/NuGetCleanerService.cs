@@ -17,6 +17,8 @@ namespace NuGetCleaner.Services
 
         public TimeSpan MaxTimeAlive { get; set; }
 
+        public bool UseRecycleBinIfPossible { get; set; }
+
         public NuGetCleanerService()
         {
         }
@@ -31,6 +33,7 @@ namespace NuGetCleaner.Services
         {
             var nugetFolder = NugetFolder ?? throw new InvalidOperationException("NuGetFolder is not set");
             var accessTimeThreshold = DateTimeOffset.Now - MaxTimeAlive;
+            var deleteSettings = UseRecycleBinIfPossible ? StorageDeleteOption.Default : StorageDeleteOption.PermanentDelete;
 
             try
             {
@@ -58,7 +61,7 @@ namespace NuGetCleaner.Services
                                 {
                                     if (dateAccessedDateTime < accessTimeThreshold)
                                     {
-                                        await versionFolder.DeleteAsync();
+                                        await versionFolder.DeleteAsync(deleteSettings);
                                         PackageCleaned?.Invoke(this, new NuGetCleanerPackageCleanedEventArgs
                                         {
                                             PackageName = packageName,

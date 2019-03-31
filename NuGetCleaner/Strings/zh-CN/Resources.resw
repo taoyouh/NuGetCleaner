@@ -156,4 +156,7 @@
   <data name="MainPage_NuGetFolderPathBox.Header" xml:space="preserve">
     <value>.nuget文件夹位置</value>
   </data>
+  <data name="MainPage_UseRecycleBinIfPossibleSwitch.Header" xml:space="preserve">
+    <value>尝试删除到回收站</value>
+  </data>
 </root>

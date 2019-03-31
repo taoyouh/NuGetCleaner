@@ -70,6 +70,7 @@ namespace NuGetCleaner.Services
             }
 
             cleaner.MaxTimeAlive = TimeSpan.FromDays(settings.DaysOfPackageToKeep);
+            cleaner.UseRecycleBinIfPossible = settings.UseRecycleBinIfPossible;
             ShowToastWithProgress(
                 0,
                 loader.GetString("BackgroundNuGetCleaner_CleaningStatus"),

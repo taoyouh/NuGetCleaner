@@ -23,6 +23,7 @@ namespace NuGetCleaner.ViewModels
         private bool _isFolderInitialized = false;
         private StorageFolder _nuGetFolder;
         private int _daysOfPackagesToKeep = 7;
+        private bool _useRecycleBinIfPossible;
         private readonly ObservableCollection<string> _messages = new ObservableCollection<string>();
         private bool _inProgress = false;
         private double _progress = 0;
@@ -40,6 +41,7 @@ namespace NuGetCleaner.ViewModels
             this.metrics = metrics ?? throw new ArgumentNullException(nameof(metrics));
             this.backgroundCleaner = backgroundCleaner ?? throw new ArgumentNullException(nameof(backgroundCleaner));
             DaysOfPackagesToKeep = settings.DaysOfPackageToKeep;
+            UseRecycleBinIfPossible = settings.UseRecycleBinIfPossible;
             InitializeNuGetFolder();
         }
 
@@ -91,6 +93,15 @@ namespace NuGetCleaner.ViewModels
             set => SetProperty(ref _daysOfPackagesToKeep, value, () =>
             {
                 settings.DaysOfPackageToKeep = value;
+            });
+        }
+
+        public bool UseRecycleBinIfPossible
+        {
+            get => _useRecycleBinIfPossible;
+            set => SetProperty(ref _useRecycleBinIfPossible, value, () =>
+            {
+                settings.UseRecycleBinIfPossible = value;
             });
         }
 
@@ -168,6 +179,7 @@ namespace NuGetCleaner.ViewModels
                 InProgress = true;
                 cleaner.NugetFolder = NuGetFolder;
                 cleaner.MaxTimeAlive = TimeSpan.FromDays(DaysOfPackagesToKeep);
+                cleaner.UseRecycleBinIfPossible = UseRecycleBinIfPossible;
                 await cleaner.CleanAsync(new Progress<double>(Cleaner_ProgressChanged));
             }
             catch (Exception ex)

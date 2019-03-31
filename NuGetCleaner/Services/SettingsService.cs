@@ -12,6 +12,7 @@ namespace NuGetCleaner.Services
     {
         private const string NuGetFolderTokenSettingsName = "NuGetFolderToken";
         private const string DaysOfPackageToKeepSettingsName = "DaysOfPackageToKeep";
+        private const string UseRecycleBinIfPossibleSettingsName = "UseRecycleBinIfPossible";
 
         private string NuGetFolderToken
         {
@@ -90,6 +91,28 @@ namespace NuGetCleaner.Services
             {
                 var settings = ApplicationData.Current.LocalSettings.Values;
                 settings[DaysOfPackageToKeepSettingsName] = value;
+            }
+        }
+
+        public bool UseRecycleBinIfPossible
+        {
+            get
+            {
+                var settings = ApplicationData.Current.LocalSettings.Values;
+                if (settings.TryGetValue(UseRecycleBinIfPossibleSettingsName, out object value)
+                    && value is bool useRecycleBin)
+                {
+                    return useRecycleBin;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            set
+            {
+                var settings = ApplicationData.Current.LocalSettings.Values;
+                settings[UseRecycleBinIfPossibleSettingsName] = value;
             }
         }
     }

@@ -25,9 +25,11 @@
             </Grid>
             <TextBox x:Uid="MainPage_DaysOfPackagesToKeepBox" Margin="6"
                      Text="{x:Bind ViewModel.DaysOfPackagesToKeep, Mode=TwoWay}" />
+            <ToggleSwitch x:Uid="MainPage_UseRecycleBinIfPossibleSwitch" Margin="6"
+                          IsOn="{x:Bind ViewModel.UseRecycleBinIfPossible, Mode=TwoWay}" />
             <ToggleSwitch x:Uid="MainPage_BackgroundCleaningSwitch" Margin="6"
-                          IsOn="{x:Bind ViewModel.BackgroundCleanEnabled, Mode=TwoWay}"
-                          IsEnabled="{x:Bind ViewModel.BackgroundCleanSwitchEnabled, Mode=OneWay}"/>
+                          IsEnabled="{x:Bind ViewModel.BackgroundCleanSwitchEnabled, Mode=OneWay}"
+                          IsOn="{x:Bind ViewModel.BackgroundCleanEnabled, Mode=TwoWay}" />
             <Button x:Uid="MainPage_CleanButton" Margin="6" HorizontalAlignment="Center"
                     Command="{x:Bind ViewModel.CleanCommand}" />
             <ProgressBar Margin="6" Maximum="1"
