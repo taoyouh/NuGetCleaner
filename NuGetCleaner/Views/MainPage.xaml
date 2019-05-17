@@ -7,12 +7,14 @@
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       mc:Ignorable="d">
 
-    <Grid Width="300" HorizontalAlignment="Center">
+    <Grid Width="452" HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Padding="6">
+        <StackPanel Padding="18">
+            <TextBlock x:Uid="MainPage_PageTitle" Margin="6,6,6,18"
+                       Style="{StaticResource TitleTextBlockStyle}" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -30,7 +32,7 @@
             <ToggleSwitch x:Uid="MainPage_BackgroundCleaningSwitch" Margin="6"
                           IsEnabled="{x:Bind ViewModel.BackgroundCleanSwitchEnabled, Mode=OneWay}"
                           IsOn="{x:Bind ViewModel.BackgroundCleanEnabled, Mode=TwoWay}" />
-            <Button x:Uid="MainPage_CleanButton" Margin="6" HorizontalAlignment="Center"
+            <Button x:Uid="MainPage_CleanButton" Margin="6"
                     Command="{x:Bind ViewModel.CleanCommand}" />
             <ProgressBar Margin="6" Maximum="1"
                          Visibility="{x:Bind ViewModel.InProgress, Mode=OneWay}"

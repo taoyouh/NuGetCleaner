@@ -156,6 +156,9 @@
   <data name="MainPage_NuGetFolderPathBox.Header" xml:space="preserve">
     <value>Path to .nuget</value>
   </data>
+  <data name="MainPage_PageTitle.Text" xml:space="preserve">
+    <value>Nuget Cache Cleaning</value>
+  </data>
   <data name="MainPage_UseRecycleBinIfPossibleSwitch.Header" xml:space="preserve">
     <value>Use recycle bin if possible</value>
   </data>
